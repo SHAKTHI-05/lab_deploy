@@ -1,0 +1,11 @@
+.deepface/
+env/
+instance/
+not used/
+static/
+templates/
+.env
+app.py
+hog_features.py
+latest_frame.jpg
+temporary_upload.py
