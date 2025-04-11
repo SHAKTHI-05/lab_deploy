@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+  </head>
+<body>
+  <h2>Configuration</h2>
+  {% if config %}
+    <p>Current config: {{ config }}</p>
+  {% endif %}
+  <form method="post" onsubmit="return confirm('Are you sure you want to change the configuration?');">
+    <select name="config">
+      <option value="single_cam_mode">Single Camera Mode</option>
+      <option value="entrycam">Entry Camera</option>
+      <option value="exitcam">Exit Camera</option>
+    </select>
+    <input type="submit" value="Set Config">
+  </form>
+</body>
+</html>

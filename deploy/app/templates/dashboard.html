@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+  <script>
+    function enableShowButton() {
+      document.getElementById("showBtn").disabled = false;
+    }
+<!--    function showVideo() {
+      let container = document.getElementById("videoContainer");
+      if (!container.innerHTML.trim()) {
+        const timestamp = new Date().getTime(); // prevent caching
+        container.innerHTML = `<img src="{{ url_for('main.video_feed') }}?t=${timestamp}" 
+                                style="width: 640px; height: auto; border: 1px solid #ccc;">`;
+          }
+    } -->
+    function showVideo() {
+      const videoContainer = document.getElementById("videoContainer");
+      const videoElement = document.getElementById("videoFeed");
+      
+      if (!videoElement) {
+          const timestamp = new Date().getTime();
+          const img = document.createElement('img');
+          img.id = 'videoFeed';
+          img.src = "{{ url_for('main.video_feed') }}?t=" + timestamp;
+          img.style = "width: 640px; height: auto; border: 1px solid #ccc;";
+          videoContainer.appendChild(img);
+      }
+  }
+  
+  function hideVideo() {
+      const videoElement = document.getElementById("videoFeed");
+      if (videoElement) {
+          videoElement.remove();
+      }
+  }
+
+
+  </script>
+</head>
+<body>
+  <h2>Dashboard</h2>
+
+  <div id="videoContainer"></div>
+
+  <form method="post" onsubmit="return handleSubmit(event)">
+    <button name="action" value="start" onclick="enableShowButton()">Start</button>
+    <button name="action" value="stop">Stop</button>
+    <button id="showBtn" name="action" value="show">Show</button>
+    <button name="action" value="hide" onclick="hideVideo()">Hide</button>
+    <button name="action" value="logout">Logout</button>
+  </form>
+  <img src="{{ url_for('main.video_feed') }}" />
+  <script>
+    function handleSubmit(e) {
+      const btn = e.submitter;
+      if (btn.name === "action" && btn.value === "show") {
+        showVideo();
+      }
+      return true;
+    }
+    <!--    function hideVideo() {
+      document.getElementById("videoContainer").innerHTML = "";
+    }-->
+
+  </script>
+</body>
+</html>

@@ -2,8 +2,6 @@
 env/
 instance/
 not used/
-static/
-templates/
 .env
 app.py
 hog_features.py
